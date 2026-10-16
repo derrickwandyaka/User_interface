@@ -1,68 +1,97 @@
-// Menu data: [name, price (UGX), image]
-const foods=[
-  ["Grilled Steak Plate",28000,"steak-plate.jpg"],
-  ["Vegetarian Platter",20000,"vegetarian-platter.jpg"],
-  ["Injera with Beef Wat",22000,"injera-beef-wat.jpg"],
-  ["Traditional Coffee",6000,"ethiopian-coffee.jpg"]
-];
-const sauces=[["Tomato Sauce",1000],["Chilli Sauce",1500],["Garlic Sauce",2000],["BBQ Sauce",2000],["Peanut Sauce",2500],["Mayonnaise",1000]];
-const DELIVERY=3000;
-const $=id=>document.getElementById(id);
+// Keba Restaurant - order form behaviour (images and menu live in index.html)
+var DELIVERY = 3000;
+function $(id){ return document.getElementById(id); }
+function fmt(n){ return n.toLocaleString(); }
 
-function build(list,box,type){
-  $(box).innerHTML=list.map((x,i)=>`<div class="item">${x[2]?`<img src="${x[2]}" alt="${x[0]}">`:""}<input type="checkbox" id="${type}${i}" data-type="${type}" data-i="${i}" aria-label="${x[0]}"><span>${x[0]}</span><b>${x[1].toLocaleString()}</b><input type="number" class="qty" id="q${type}${i}" min="1" max="20" value="1" aria-label="Quantity"></div>`).join("");
-}
-build(foods,"foods","f");build(sauces,"sauces","s");
-
+// Collect every ticked food / sauce item using the data-price attribute in the HTML
 function selected(){
-  const out=[];
-  document.querySelectorAll('input[type=checkbox]').forEach(c=>{
-    if(c.checked){
-      const l=c.dataset.type==="f"?foods:sauces, it=l[c.dataset.i];
-      let q=parseInt($("q"+c.id).value)||1; q=Math.min(20,Math.max(1,q));
-      out.push({name:it[0],qty:q,sub:it[1]*q});
+  var out = [];
+  var boxes = document.querySelectorAll('input[type=checkbox]');
+  for (var i = 0; i < boxes.length; i++){
+    var c = boxes[i];
+    var card = $("card-" + c.id);
+    if (c.checked){
+      var q = parseInt($("q" + c.id).value, 10) || 1;
+      q = Math.min(20, Math.max(1, q));
+      var price = parseInt(c.getAttribute("data-price"), 10);
+      out.push({name: c.value, qty: q, sub: price * q});
+      if (card) card.classList.add("selected");
+    } else if (card){
+      card.classList.remove("selected");
     }
-  });
+  }
   return out;
 }
-function update(){
-  const s=selected(), sub=s.reduce((a,b)=>a+b.sub,0);
-  $("sumList").innerHTML=s.length?s.map(i=>`<li>${i.name} × ${i.qty} — UGX ${i.sub.toLocaleString()}</li>`).join(""):"<li>No items selected yet.</li>";
-  const d=s.length?DELIVERY:0;
-  $("del").textContent=d.toLocaleString();
-  $("total").textContent=(sub+d).toLocaleString();
-}
-document.addEventListener("input",update);
-document.addEventListener("change",update);
-$("resetBtn").addEventListener("click",()=>setTimeout(()=>{document.querySelectorAll(".err").forEach(e=>e.textContent="");document.querySelectorAll(".invalid").forEach(e=>e.classList.remove("invalid"));update();},0));
 
-const phoneRx=/^(\+256|0)7\d{8}$/;
-function setErr(id,msg,field){
-  $("e-"+id).textContent=msg;
-  if(field)$(field).classList.toggle("invalid",!!msg);
+function update(){
+  var s = selected(), sub = 0, html = "";
+  for (var i = 0; i < s.length; i++){
+    sub += s[i].sub;
+    html += "<li>" + s[i].name + " x " + s[i].qty + " - UGX " + fmt(s[i].sub) + "</li>";
+  }
+  $("sumList").innerHTML = html || "<li>No items selected yet.</li>";
+  var d = s.length ? DELIVERY : 0;
+  $("del").textContent = fmt(d);
+  $("total").textContent = fmt(sub + d);
+}
+document.addEventListener("input", update);
+document.addEventListener("change", update);
+
+$("resetBtn").addEventListener("click", function(){
+  setTimeout(function(){
+    var errs = document.querySelectorAll(".err");
+    for (var i = 0; i < errs.length; i++) errs[i].textContent = "";
+    var bad = document.querySelectorAll(".invalid");
+    for (var j = 0; j < bad.length; j++) bad[j].classList.remove("invalid");
+    update();
+  }, 0);
+});
+
+// ----- Validation -----
+var phoneRx = /^(\+256|0)7\d{8}$/;
+function setErr(id, msg, field){
+  $("e-" + id).textContent = msg;
+  if (field) $(field).classList.toggle("invalid", !!msg);
   return !msg;
 }
 function validate(){
-  let ok=true;
-  const name=$("name").value.trim(), email=$("email").value.trim(),
-        ph=$("phone").value.trim().replace(/\s/g,""), alt=$("alt").value.trim().replace(/\s/g,""),
-        addr=$("address").value.trim();
-  ok&=setErr("name",!/^[A-Za-z][A-Za-z .'-]+$/.test(name)||name.split(/\s+/).length<2?"Enter your full name (first and last, letters only).":"","name");
-  ok&=setErr("email",!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)?"Enter a valid email address.":"","email");
-  ok&=setErr("phone",!phoneRx.test(ph)?"Enter a valid number, e.g. 0771234567 or +256771234567.":"","phone");
-  ok&=setErr("alt",alt&&(!phoneRx.test(alt)||alt===ph)?(alt===ph?"Must differ from the main number.":"Enter a valid number or leave blank."):"","alt");
-  ok&=setErr("address",addr.length<5?"Enter a delivery address.":"","address");
-  ok&=setErr("items",selected().length===0?"Select at least one item.":"");
-  ok&=setErr("pay",!document.querySelector('input[name=pay]:checked')?"Choose a payment method.":"");
-  return !!ok;
+  var ok = true;
+  var name = $("name").value.trim(), email = $("email").value.trim();
+  var ph = $("phone").value.trim().replace(/\s/g, ""), alt = $("alt").value.trim().replace(/\s/g, "");
+  var addr = $("address").value.trim();
+
+  ok = setErr("name", (!/^[A-Za-z][A-Za-z .'-]+$/.test(name) || name.split(/\s+/).length < 2) ? "Enter your full name (first and last, letters only)." : "", "name") && ok;
+  ok = setErr("email", !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email) ? "Enter a valid email address." : "", "email") && ok;
+  ok = setErr("phone", !phoneRx.test(ph) ? "Enter a valid number, e.g. 0771234567 or +256771234567." : "", "phone") && ok;
+  var altMsg = "";
+  if (alt){
+    if (!phoneRx.test(alt)) altMsg = "Enter a valid number or leave blank.";
+    else if (alt === ph) altMsg = "Must differ from the main number.";
+  }
+  ok = setErr("alt", altMsg, "alt") && ok;
+  ok = setErr("address", addr.length < 5 ? "Enter a delivery address." : "", "address") && ok;
+  ok = setErr("items", selected().length === 0 ? "Select at least one item." : "") && ok;
+  ok = setErr("pay", !document.querySelector('input[name=pay]:checked') ? "Choose a payment method." : "") && ok;
+  return ok;
 }
-$("orderForm").addEventListener("submit",e=>{
+
+// ----- Submit & confirmation pop-up -----
+$("orderForm").addEventListener("submit", function(e){
   e.preventDefault();
-  if(!validate()){const f=document.querySelector(".invalid,.err:not(:empty)");if(f)f.scrollIntoView({behavior:"smooth",block:"center"});return;}
-  const s=selected(), total=s.reduce((a,b)=>a+b.sub,0)+DELIVERY;
-  $("confirmBody").innerHTML=`<p>Thank you, <b>${$("name").value.trim().replace(/</g,"&lt;")}</b>! Your order is on its way.</p>
-  <ul>${s.map(i=>`<li>${i.name} × ${i.qty}</li>`).join("")}</ul>
-  <p>Payment: <b>${document.querySelector('input[name=pay]:checked').value}</b><br>Total (incl. delivery): <b>UGX ${total.toLocaleString()}</b></p>`;
+  if (!validate()){
+    var f = document.querySelector(".invalid");
+    if (f) f.scrollIntoView({behavior: "smooth", block: "center"});
+    return;
+  }
+  var s = selected(), total = DELIVERY, list = "";
+  for (var i = 0; i < s.length; i++){ total += s[i].sub; list += "<li>" + s[i].name + " x " + s[i].qty + "</li>"; }
+  var cust = $("name").value.trim().replace(/</g, "&lt;");
+  $("confirmBody").innerHTML = "<p>Thank you, <b>" + cust + "</b>! Your order is on its way.</p><ul>" + list + "</ul>" +
+    "<p>Payment: <b>" + document.querySelector('input[name=pay]:checked').value + "</b><br>Total (incl. delivery): <b>UGX " + fmt(total) + "</b></p>";
   $("modal").classList.add("show");
 });
-$("closeBtn").addEventListener("click",()=>{$("modal").classList.remove("show");$("orderForm").reset();setTimeout(update,0);});
+$("closeBtn").addEventListener("click", function(){
+  $("modal").classList.remove("show");
+  $("orderForm").reset();
+  setTimeout(update, 0);
+});
