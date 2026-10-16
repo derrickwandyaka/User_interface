@@ -1,42 +1,79 @@
-:root{--red:#c0392b;--dark:#2d1b14;--gold:#f4b942;--cream:#fff8ee}
-*{box-sizing:border-box}
-body{margin:0;font-family:'Segoe UI',Arial,sans-serif;background:var(--cream);color:var(--dark)}
-.hero{background:linear-gradient(rgba(60,10,5,.65),rgba(60,10,5,.75)),url("../images/restaurant.jpg") center/cover;color:#fff;text-align:center;padding:70px 16px}
-.hero h1{margin:0;font-size:2.6rem;letter-spacing:1px}
-.hero p{margin:8px 0 0;color:var(--gold);font-size:1.15rem}
-main{max-width:900px;margin:24px auto;padding:0 16px}
-fieldset{background:#fff;border:none;border-radius:12px;padding:20px;margin-bottom:20px;box-shadow:0 2px 8px rgba(0,0,0,.1)}
-legend{background:var(--red);color:#fff;padding:6px 16px;border-radius:20px;font-weight:600}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.full{grid-column:1/-1}
-label{display:block;font-weight:600;margin-bottom:4px}
-input[type=text],input[type=email],input[type=tel],select,textarea{width:100%;padding:10px;border:2px solid #ddd;border-radius:8px;font-size:1rem}
-input:focus,select:focus,textarea:focus{outline:none;border-color:var(--red)}
-.err{color:var(--red);font-size:.85rem;min-height:1.1em;display:block}
-.invalid{border-color:var(--red)!important}
-.items{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
-.item{display:flex;align-items:center;gap:8px;border:2px solid #eee;border-radius:10px;padding:10px;background:#fffdf8}
-.item:has(input[type=checkbox]:checked){border-color:var(--red);background:#fdecea}
-.item span{flex:1}
-.item b{color:var(--red);white-space:nowrap}
-.qty{width:58px;padding:5px;border:1px solid #ccc;border-radius:6px}
-.cards{grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
-.cards .item{flex-wrap:wrap;padding:0 0 10px;overflow:hidden}
-.cards .item img{width:100%;height:140px;object-fit:cover;display:block}
-.cards .item input[type=checkbox],.cards .item span,.cards .item b,.cards .item .qty{margin-left:8px}
-.cards .item .qty{margin-right:8px}
-.pay{display:flex;flex-wrap:wrap;gap:14px}
-.pay label{font-weight:500;background:#f6f6f6;padding:8px 14px;border-radius:20px;cursor:pointer}
-#summary{background:var(--dark);color:#fff}
+/* Keba Restaurant - stylesheet */
+body{margin:0;padding:0;background:#f3e9dc;font-family:Verdana,Geneva,sans-serif;font-size:14px;color:#3b2417}
+#container{width:960px;max-width:100%;margin:0 auto;background:#ffffff;box-shadow:0 0 12px rgba(0,0,0,.25)}
+.clear{clear:both}
+.center{text-align:center}
+.float-left{float:left;margin:0 18px 8px 0;border:4px solid #f4b942}
+
+/* Header */
+#header{position:relative;height:220px;overflow:hidden;background:#7b241c}
+#banner{width:100%;height:220px;object-fit:cover;display:block;opacity:.45}
+#banner-text{position:absolute;left:0;right:0;top:55px;text-align:center;color:#ffffff}
+#banner-text h1{margin:0;font-family:Georgia,"Times New Roman",serif;font-size:46px;letter-spacing:2px;text-shadow:2px 2px 4px #000}
+#banner-text p{margin:8px 0 0;font-size:17px;color:#f4b942;text-shadow:1px 1px 3px #000}
+
+/* Navigation */
+#nav{background:#c0392b;border-top:3px solid #f4b942;border-bottom:3px solid #7b241c}
+#nav ul{list-style:none;margin:0;padding:0;text-align:center}
+#nav li{display:inline-block}
+#nav a{display:block;padding:12px 18px;color:#ffffff;text-decoration:none;font-weight:bold}
+#nav a:hover{background:#7b241c;color:#f4b942}
+
+/* Content */
+#content{padding:20px 28px}
+.section{margin-bottom:22px;padding:16px 20px;background:#fffaf2;border:1px solid #e6d3b8;border-radius:6px}
+.section h2{margin:0 0 12px;padding-bottom:6px;font-family:Georgia,"Times New Roman",serif;font-size:22px;color:#c0392b;border-bottom:2px solid #f4b942}
+.hint{margin:0 0 12px;color:#7a6a5c;font-style:italic}
+
+/* Form fields */
+.row{margin-bottom:10px;overflow:hidden}
+.field{float:left;width:48%;margin-right:2%}
+.field.wide{width:98%}
+label{display:block;margin-bottom:4px;font-weight:bold}
+input[type=text],input[type=email],input[type=tel],textarea{width:100%;padding:9px;border:2px solid #d8c7b0;border-radius:4px;font-family:inherit;font-size:14px;box-sizing:border-box}
+input:focus,textarea:focus{outline:none;border-color:#c0392b}
+.invalid{border-color:#c0392b !important;background:#fdecea}
+.err{display:block;min-height:16px;color:#c0392b;font-size:12px}
+
+/* Menu cards */
+.menu-card{float:left;width:200px;margin:0 14px 14px 0;padding:8px;background:#ffffff;border:2px solid #e6d3b8;border-radius:6px;text-align:center}
+.menu-card img{display:block;width:200px;height:140px;object-fit:cover;border-radius:4px}
+.menu-card h3{margin:8px 0 4px;font-size:15px;color:#3b2417}
+.menu-card .desc{margin:0 0 6px;height:52px;overflow:hidden;font-size:12px;color:#6b5b4e}
+.price{margin:0 0 6px;font-weight:bold;color:#c0392b}
+.pick,.qtylabel{display:inline-block;margin:0 6px;font-weight:normal}
+.qty{width:52px;padding:4px;border:1px solid #bbb;border-radius:4px}
+.selected{border-color:#c0392b !important;background:#fdecea !important}
+
+/* Sauces */
+.sauce{float:left;width:46%;margin:0 2% 8px 0;padding:8px 10px;background:#ffffff;border:2px solid #e6d3b8;border-radius:6px;font-weight:normal}
+.sauce .qty{float:right}
+
+/* Payment */
+.radio{float:left;margin:0 14px 6px 0;padding:8px 14px;background:#f1e6d6;border-radius:18px;font-weight:normal;cursor:pointer}
+
+/* Summary */
+#summary{background:#2d1b14;color:#ffffff;border-color:#2d1b14}
+#summary h2{color:#f4b942}
 #summary li{margin:4px 0}
-.total{font-size:1.3rem;color:var(--gold);font-weight:700;text-align:right;margin-top:10px}
-.btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-button{border:none;padding:14px 32px;border-radius:30px;font-size:1.05rem;font-weight:700;cursor:pointer}
-.submit{background:var(--red);color:#fff}.submit:hover{background:#962d22}
-.reset{background:#ddd}.reset:hover{background:#ccc}
-#modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);align-items:center;justify-content:center;padding:16px}
-#modal.show{display:flex}
-.box{background:#fff;border-radius:14px;padding:26px;max-width:480px;width:100%;max-height:90vh;overflow:auto}
-.box h2{color:var(--red);margin-top:0}
-footer{text-align:center;padding:20px;color:#777;font-size:.9rem}
-@media(max-width:600px){.grid{grid-template-columns:1fr}.hero{padding:44px 16px}.hero h1{font-size:2rem}}
+.total{margin:12px 0 0;text-align:right;font-size:18px;font-weight:bold;color:#f4b942}
+
+/* Buttons */
+#buttons{text-align:center;padding:6px 0 10px}
+.btn-submit,.btn-reset{padding:12px 34px;margin:0 6px;border:none;border-radius:24px;font-size:15px;font-weight:bold;cursor:pointer;font-family:inherit}
+.btn-submit{background:#c0392b;color:#ffffff}
+.btn-submit:hover{background:#962d22}
+.btn-reset{background:#d9d9d9;color:#333}
+.btn-reset:hover{background:#c4c4c4}
+
+/* Footer */
+#footer{background:#2d1b14;color:#d8c7b0;text-align:center;padding:14px;font-size:12px}
+#footer p{margin:0}
+
+/* Modal */
+#modal{display:none;position:fixed;left:0;top:0;right:0;bottom:0;background:rgba(0,0,0,.6);z-index:50}
+#modal.show{display:block}
+.box{width:440px;max-width:90%;margin:90px auto;padding:24px;background:#ffffff;border-radius:10px}
+.box h2{margin-top:0;color:#c0392b}
+
+@media(max-width:700px){.field{float:none;width:100%;margin:0 0 10px}.sauce{width:100%}#banner-text h1{font-size:30px}}
