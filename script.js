@@ -2,7 +2,7 @@
 const foods=[
   ["Grilled Steak Plate",28000,"steak-plate.jpg"],
   ["Vegetarian Platter",20000,"vegetarian-platter.jpg"],
-  ["Injera with Beef Wat",22000,"images/injera-beef-wat.jpg"],
+  ["Injera with Beef Wat",22000,"injera-beef-wat.jpg"],
   ["Traditional Coffee",6000,"ethiopian-coffee.jpg"]
 ];
 const sauces=[["Tomato Sauce",1000],["Chilli Sauce",1500],["Garlic Sauce",2000],["BBQ Sauce",2000],["Peanut Sauce",2500],["Mayonnaise",1000]];
