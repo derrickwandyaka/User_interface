@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Keba Restaurant - Order for Delivery</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="hero">
+  <div class="hero-text">
+    <h1>Keba Restaurant</h1>
+    <p>Fresh, authentic dishes delivered to your door</p>
+  </div>
+</header>
+
+<main>
+<form id="orderForm" novalidate>
+
+<fieldset><legend>1. Customer Details</legend>
+<div class="grid">
+<div class="full"><label for="name">Full Name *</label>
+  <input type="text" id="name" placeholder="Enter your full name please"><span class="err" id="e-name"></span></div>
+<div><label for="email">Email *</label><input type="email" id="email" placeholder="Enter email"><span class="err" id="e-email"></span></div>
+<div><label for="phone">Phone Number *</label><input type="tel" id="phone" placeholder="Enter phone number"><span class="err" id="e-phone"></span></div>
+<div><label for="alt">Alternative Phone</label><input type="tel" id="alt" placeholder="Optional"><span class="err" id="e-alt"></span></div>
+<div><label for="address">Delivery Address *</label><input type="text" id="address" placeholder="Area, street, landmark"><span class="err" id="e-address"></span></div>
+<div class="full"><label for="notes">Delivery Instructions</label><textarea id="notes" rows="2" placeholder="e.g. Call on arrival, gate is blue"></textarea></div>
+</div>
+</fieldset>
+
+<fieldset><legend>2. Food &amp; Drinks</legend>
+<div class="items cards" id="foods"></div>
+</fieldset>
+
+<fieldset><legend>3. Sauce Items</legend>
+<div class="items" id="sauces"></div>
+<span class="err" id="e-items"></span>
+</fieldset>
+
+<fieldset><legend>4. Payment Method</legend>
+<div class="pay">
+<label><input type="radio" name="pay" value="Cash on Delivery">Cash on Delivery</label>
+<label><input type="radio" name="pay" value="Mobile Money">Mobile Money</label>
+<label><input type="radio" name="pay" value="Credit/Debit Card">Credit/Debit Card</label>
+</div>
+<span class="err" id="e-pay"></span>
+</fieldset>
+
+<fieldset id="summary"><legend>Order Summary</legend>
+<ul id="sumList"><li>No items selected yet.</li></ul>
+<div class="total">Delivery: UGX <span id="del">0</span> &nbsp;|&nbsp; Total: UGX <span id="total">0</span></div>
+</fieldset>
+
+<div class="btns">
+<button type="submit" class="submit">Place Order</button>
+<button type="reset" class="reset" id="resetBtn">Clear Form</button>
+</div>
+</form>
+</main>
+
+<div id="modal"><div class="box">
+<h2>Order Confirmed!</h2><div id="confirmBody"></div>
+<p style="text-align:center"><button class="submit" id="closeBtn">OK</button></p>
+</div></div>
+
+<footer>&copy; 2026 Keba Restaurant. All rights reserved.</footer>
+
+<script src="js/script.js"></script>
+</body>
+</html>
