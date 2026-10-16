@@ -1,9 +1,9 @@
 // Menu data: [name, price (UGX), image]
 const foods=[
-  ["Grilled Steak Plate",28000,"images/steak-plate.jpg"],
-  ["Vegetarian Platter",20000,"images/vegetarian-platter.jpg"],
+  ["Grilled Steak Plate",28000,"steak-plate.jpg"],
+  ["Vegetarian Platter",20000,"vegetarian-platter.jpg"],
   ["Injera with Beef Wat",22000,"images/injera-beef-wat.jpg"],
-  ["Traditional Coffee",6000,"images/ethiopian-coffee.jpg"]
+  ["Traditional Coffee",6000,"ethiopian-coffee.jpg"]
 ];
 const sauces=[["Tomato Sauce",1000],["Chilli Sauce",1500],["Garlic Sauce",2000],["BBQ Sauce",2000],["Peanut Sauce",2500],["Mayonnaise",1000]];
 const DELIVERY=3000;
