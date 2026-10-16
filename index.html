@@ -4,67 +4,181 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Keba Restaurant - Order for Delivery</title>
-<link rel="stylesheet" href="style.css">
+<link href="style.css" rel="stylesheet" type="text/css">
 </head>
+
 <body>
-<header class="hero">
-  <div class="hero-text">
-    <h1>Keba Restaurant</h1>
-    <p>Fresh, authentic dishes delivered to your door</p>
+<div id="container">
+
+  <!-- ===== HEADER ===== -->
+  <div id="header">
+    <img src="images/restaurant.jpg" alt="Keba Restaurant dining area" id="banner">
+    <div id="banner-text">
+      <h1>Keba Restaurant</h1>
+      <p>Fresh, authentic dishes delivered to your door</p>
+    </div>
   </div>
-</header>
 
-<main>
-<form id="orderForm" novalidate>
+  <!-- ===== NAVIGATION ===== -->
+  <div id="nav">
+    <ul>
+      <li><a href="#welcome">Welcome</a></li>
+      <li><a href="#details">Your Details</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#sauces">Sauces</a></li>
+      <li><a href="#payment">Payment</a></li>
+      <li><a href="#summary">Order Summary</a></li>
+    </ul>
+  </div>
 
-<fieldset><legend>1. Customer Details</legend>
-<div class="grid">
-<div class="full"><label for="name">Full Name *</label>
-  <input type="text" id="name" placeholder="Enter your full name please"><span class="err" id="e-name"></span></div>
-<div><label for="email">Email *</label><input type="email" id="email" placeholder="Enter email"><span class="err" id="e-email"></span></div>
-<div><label for="phone">Phone Number *</label><input type="tel" id="phone" placeholder="Enter phone number"><span class="err" id="e-phone"></span></div>
-<div><label for="alt">Alternative Phone</label><input type="tel" id="alt" placeholder="Optional"><span class="err" id="e-alt"></span></div>
-<div><label for="address">Delivery Address *</label><input type="text" id="address" placeholder="Area, street, landmark"><span class="err" id="e-address"></span></div>
-<div class="full"><label for="notes">Delivery Instructions</label><textarea id="notes" rows="2" placeholder="e.g. Call on arrival, gate is blue"></textarea></div>
+  <!-- ===== MAIN CONTENT ===== -->
+  <div id="content">
+
+    <div class="section" id="welcome">
+      <img src="images/restaurant.jpg" alt="Keba Restaurant seating" width="260" class="float-left">
+      <h2>Welcome to Keba</h2>
+      <p>Order your favourite meals online and have them delivered fresh to your door. Fill in your details, choose your dishes and sauces, pick a payment method and press <strong>Place Order</strong>. Fields marked with * are required.</p>
+      <div class="clear"></div>
+    </div>
+
+    <form id="orderForm" name="orderForm" method="post" action="#" novalidate>
+
+      <div class="section" id="details">
+        <h2>1. Customer Details</h2>
+        <div class="row">
+          <div class="field">
+            <label for="name">Full Name *</label>
+            <input type="text" name="name" id="name" placeholder="Enter your full name please">
+            <span class="err" id="e-name"></span>
+          </div>
+          <div class="field">
+            <label for="email">Email *</label>
+            <input type="email" name="email" id="email" placeholder="Please enter your email here">
+            <span class="err" id="e-email"></span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="phone">Phone Number *</label>
+            <input type="tel" name="phone" id="phone" placeholder="Enter your contact">
+            <span class="err" id="e-phone"></span>
+          </div>
+          <div class="field">
+            <label for="alt">Alternative Phone Number</label>
+            <input type="tel" name="alt" id="alt" placeholder="Optional">
+            <span class="err" id="e-alt"></span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="field wide">
+            <label for="address">Delivery Address *</label>
+            <input type="text" name="address" id="address" placeholder="Area, street, landmark">
+            <span class="err" id="e-address"></span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="field wide">
+            <label for="notes">Delivery Instructions</label>
+            <textarea name="notes" id="notes" rows="3" placeholder="e.g. Call on arrival, gate is blue"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="section" id="menu">
+        <h2>2. Food &amp; Drinks</h2>
+        <p class="hint">Tick the dishes you want and set the quantity.</p>
+      <div class="menu-card" id="card-f0">
+        <img src="steak-plate.jpg" alt="Grilled Steak Plate" width="220" height="150">
+        <h3>Grilled Steak Plate</h3>
+        <p class="desc">Tender grilled steak with butter sauce, roasted vegetables and potato rosettes.</p>
+        <p class="price">UGX 28,000</p>
+        <label class="pick"><input type="checkbox" name="food" id="f0" value="Grilled Steak Plate" data-price="28000"> Select</label>
+        <label class="qtylabel">Qty <input type="number" name="qty_f0" id="qf0" class="qty" min="1" max="20" value="1"></label>
+      </div>
+      <div class="menu-card" id="card-f1">
+        <img src="vegetarian-platter.jpg" alt="Vegetarian Platter" width="220" height="150">
+        <h3>Vegetarian Platter</h3>
+        <p class="desc">A tray of lentils, greens, cabbage and mixed vegetables served with flatbread.</p>
+        <p class="price">UGX 20,000</p>
+        <label class="pick"><input type="checkbox" name="food" id="f1" value="Vegetarian Platter" data-price="20000"> Select</label>
+        <label class="qtylabel">Qty <input type="number" name="qty_f1" id="qf1" class="qty" min="1" max="20" value="1"></label>
+      </div>
+      <div class="menu-card" id="card-f2">
+        <img src="injera-beef-wat.jpg" alt="Injera with Beef Wat" width="220" height="150">
+        <h3>Injera with Beef Wat</h3>
+        <p class="desc">Slow-cooked spicy beef stew served on soft injera.</p>
+        <p class="price">UGX 22,000</p>
+        <label class="pick"><input type="checkbox" name="food" id="f2" value="Injera with Beef Wat" data-price="22000"> Select</label>
+        <label class="qtylabel">Qty <input type="number" name="qty_f2" id="qf2" class="qty" min="1" max="20" value="1"></label>
+      </div>
+      <div class="menu-card" id="card-f3">
+        <img src="ethiopian-coffee.jpg" alt="Traditional Coffee" width="220" height="150">
+        <h3>Traditional Coffee</h3>
+        <p class="desc">Freshly brewed coffee served in a clay pot.</p>
+        <p class="price">UGX 6,000</p>
+        <label class="pick"><input type="checkbox" name="food" id="f3" value="Traditional Coffee" data-price="6000"> Select</label>
+        <label class="qtylabel">Qty <input type="number" name="qty_f3" id="qf3" class="qty" min="1" max="20" value="1"></label>
+      </div>
+        <div class="clear"></div>
+      </div>
+
+      <div class="section" id="sauces">
+        <h2>3. Sauce Items</h2>
+        <p class="hint">You may select more than one sauce.</p>
+      <label class="sauce" id="card-s0"><input type="checkbox" name="sauce" id="s0" value="Tomato Sauce" data-price="1000"> Tomato Sauce - UGX 1,000
+        <input type="number" name="qty_s0" id="qs0" class="qty" min="1" max="20" value="1"></label>
+      <label class="sauce" id="card-s1"><input type="checkbox" name="sauce" id="s1" value="Chilli Sauce" data-price="1500"> Chilli Sauce - UGX 1,500
+        <input type="number" name="qty_s1" id="qs1" class="qty" min="1" max="20" value="1"></label>
+      <label class="sauce" id="card-s2"><input type="checkbox" name="sauce" id="s2" value="Garlic Sauce" data-price="2000"> Garlic Sauce - UGX 2,000
+        <input type="number" name="qty_s2" id="qs2" class="qty" min="1" max="20" value="1"></label>
+      <label class="sauce" id="card-s3"><input type="checkbox" name="sauce" id="s3" value="BBQ Sauce" data-price="2000"> BBQ Sauce - UGX 2,000
+        <input type="number" name="qty_s3" id="qs3" class="qty" min="1" max="20" value="1"></label>
+      <label class="sauce" id="card-s4"><input type="checkbox" name="sauce" id="s4" value="Peanut Sauce" data-price="2500"> Peanut Sauce - UGX 2,500
+        <input type="number" name="qty_s4" id="qs4" class="qty" min="1" max="20" value="1"></label>
+      <label class="sauce" id="card-s5"><input type="checkbox" name="sauce" id="s5" value="Mayonnaise" data-price="1000"> Mayonnaise - UGX 1,000
+        <input type="number" name="qty_s5" id="qs5" class="qty" min="1" max="20" value="1"></label>
+        <div class="clear"></div>
+        <span class="err" id="e-items"></span>
+      </div>
+
+      <div class="section" id="payment">
+        <h2>4. Payment Method</h2>
+        <label class="radio"><input type="radio" name="pay" value="Cash on Delivery"> Cash on Delivery</label>
+        <label class="radio"><input type="radio" name="pay" value="Mobile Money"> Mobile Money</label>
+        <label class="radio"><input type="radio" name="pay" value="Credit/Debit Card"> Credit / Debit Card</label>
+        <div class="clear"></div>
+        <span class="err" id="e-pay"></span>
+      </div>
+
+      <div class="section" id="summary">
+        <h2>Order Summary</h2>
+        <ul id="sumList"><li>No items selected yet.</li></ul>
+        <p class="total">Delivery: UGX <span id="del">0</span> &nbsp;|&nbsp; Total: UGX <span id="total">0</span></p>
+      </div>
+
+      <div id="buttons">
+        <input type="submit" name="submit" id="submit" value="Place Order" class="btn-submit">
+        <input type="reset" name="reset" id="resetBtn" value="Clear Form" class="btn-reset">
+      </div>
+
+    </form>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <div id="footer">
+    <p>&copy; 2026 Keba Restaurant. All rights reserved.</p>
+  </div>
+
 </div>
-</fieldset>
 
-<fieldset><legend>2. Food &amp; Drinks</legend>
-<div class="items cards" id="foods"></div>
-</fieldset>
-
-<fieldset><legend>3. Sauce Items</legend>
-<div class="items" id="sauces"></div>
-<span class="err" id="e-items"></span>
-</fieldset>
-
-<fieldset><legend>4. Payment Method</legend>
-<div class="pay">
-<label><input type="radio" name="pay" value="Cash on Delivery">Cash on Delivery</label>
-<label><input type="radio" name="pay" value="Mobile Money">Mobile Money</label>
-<label><input type="radio" name="pay" value="Credit/Debit Card">Credit/Debit Card</label>
+<!-- Order confirmation pop-up -->
+<div id="modal">
+  <div class="box">
+    <h2>Order Confirmed!</h2>
+    <div id="confirmBody"></div>
+    <p class="center"><input type="button" id="closeBtn" value="OK" class="btn-submit"></p>
+  </div>
 </div>
-<span class="err" id="e-pay"></span>
-</fieldset>
-
-<fieldset id="summary"><legend>Order Summary</legend>
-<ul id="sumList"><li>No items selected yet.</li></ul>
-<div class="total">Delivery: UGX <span id="del">0</span> &nbsp;|&nbsp; Total: UGX <span id="total">0</span></div>
-</fieldset>
-
-<div class="btns">
-<button type="submit" class="submit">Place Order</button>
-<button type="reset" class="reset" id="resetBtn">Clear Form</button>
-</div>
-</form>
-</main>
-
-<div id="modal"><div class="box">
-<h2>Order Confirmed!</h2><div id="confirmBody"></div>
-<p style="text-align:center"><button class="submit" id="closeBtn">OK</button></p>
-</div></div>
-
-<footer>&copy; 2026 Keba Restaurant. All rights reserved.</footer>
 
 <script src="script.js"></script>
 </body>
